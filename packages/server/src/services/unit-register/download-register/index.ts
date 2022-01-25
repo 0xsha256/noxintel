@@ -4,6 +4,7 @@ import { resolve } from 'path'
 import stream from 'stream'
 import { promisify } from 'util'
 import ora, { Ora } from 'ora'
+import timeLeft from '../../../utils/time-left'
 
 const pipeline = promisify(stream.pipeline)
 const path = (str: string) => resolve(__dirname, str)
@@ -22,23 +23,15 @@ export default async (): Promise<unknown> => {
   const spin = ora().start()
 
   downloadStream.on('downloadProgress', ({ transferred, total }) => {
-    const elapsedTime = (new Date().getTime()) - startTime
-    const chunksPerTime = transferred / elapsedTime
-    const estimatedTotalTime = total / chunksPerTime
-    const timeLeftInSeconds = (estimatedTotalTime - elapsedTime) / 1000
 
-    const withOneDecimalPlace = Math.round(timeLeftInSeconds * 10) / 10
+    const percentage = Math.round((100 * transferred) / total)
 
-    spin.text = `Downloading NO-units ${Math.round(transferred)} ${withOneDecimalPlace}s left`
-    //  spin.text = 'Downloading NO-units' + ' ' + parseInt(transferred.toLocaleString()) + '/' + parseInt(total.toLocaleString()) + '\n'
-
+    spin.text = percentage === 100 ?
+      'Download done' :
+      `Downloading NO-units ${percentage}% | ${timeLeft(startTime, transferred, total)}s left`
   })
 
   const result = await pipeline(downloadStream, fileWriterStream).then(() => true)
 
-  if (result && fileExists) {
-    return true
-  } else {
-    return false
-  }
+  return result && fileExists
 }
