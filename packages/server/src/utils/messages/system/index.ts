@@ -12,6 +12,7 @@ export default () => {
   console.log(boxen(message, {
     title: `Noxintel server v${pkg.version}`,
     borderStyle: 'round',
+    borderColor: 'cyan',
     padding: 1
   }))
 }

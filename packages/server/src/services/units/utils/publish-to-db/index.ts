@@ -1,9 +1,9 @@
-import UnitRegister from '../../../db/models/unit-register'
-import { ENRegisteredUnit } from '../../../types/unit-register/index'
+import UnitRegister from '../../../../db/models/unit-register'
+import { ENRegisteredUnit } from '../../../../types/unit-register/index'
+import consola from 'consola'
 
 export default async (doc: ENRegisteredUnit) => {
   try {
-
     if (doc.terminated) return
 
     const docExists = await UnitRegister.exists({ orgNumber: doc.orgNumber })
@@ -16,6 +16,6 @@ export default async (doc: ENRegisteredUnit) => {
       unitRegister.save()
     }
   } catch (e) {
-    console.log(e)
+    consola.error(e)
   }
 }

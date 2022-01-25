@@ -15,8 +15,8 @@ app.use(compression())
 
 app.listen(4000, () => {
   unitRegister()
-  /*  message()
+  message()
   routes(app, {
     dir: path.resolve(__dirname, './routes') // relative to your cwd
-  }) */
+  })
 })

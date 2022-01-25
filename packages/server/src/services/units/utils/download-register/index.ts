@@ -1,18 +1,15 @@
-import { createWriteStream, existsSync, mkdirSync, rmSync } from 'fs'
+import { createWriteStream, existsSync, mkdirSync } from 'fs'
 import got from 'got'
 import { resolve } from 'path'
 import stream from 'stream'
 import { promisify } from 'util'
-import ora, { Ora } from 'ora'
-import timeLeft from '../../../utils/time-left'
+import ora from 'ora'
+import timeLeft from '../../../../utils/time-left'
 
 const pipeline = promisify(stream.pipeline)
 const path = (str: string) => resolve(__dirname, str)
-const fileExists = existsSync(path('../tmp/no-unit-register.json.gz'))
 
-
-export default async (): Promise<unknown> => {
-  const url = 'https://data.brreg.no/enhetsregisteret/api/enheter/lastned'
+export default async (prefix: string, url: string): Promise<unknown> => {
   const tmp = path('../tmp')
   existsSync(tmp) ? {} : mkdirSync(tmp)
   const fileName = resolve(__dirname, '../tmp/no-unit-register.json.gz')
@@ -28,10 +25,10 @@ export default async (): Promise<unknown> => {
 
     spin.text = percentage === 100 ?
       'Download done' :
-      `Downloading NO-units ${percentage}% | ${timeLeft(startTime, transferred, total)}s left`
+      `Downloading ${prefix}-units ${percentage}% | ${timeLeft(startTime, transferred, total)}s left`
   })
 
   const result = await pipeline(downloadStream, fileWriterStream).then(() => true)
 
-  return result && fileExists
+  return result
 }

@@ -1,6 +1,6 @@
-import downloadRegister from './download-register'
+import downloadRegister from '../units/utils/download-register'
 import processUnitRegisterData from './process-data'
-import addUnitToDbCol from './publish-to-db'
+import addUnitToDbCol from '../units/utils/publish-to-db'
 
 export default async () => {
   const downloaded = await downloadRegister()

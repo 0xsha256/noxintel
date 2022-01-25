@@ -150,7 +150,7 @@ async function autoload(
   url: string,
   log: boolean
 ) {
-  const module = loadModule(fullPath) as unknown
+  const module = await loadModule(fullPath) as unknown
 
   if (typeof module !== 'function') {
     throw new Error(

@@ -5,7 +5,7 @@ type WebsiteObj = Promise<{ [key: string]: string | boolean } | undefined>
 /**
  * 
  * @param orgNumber 
- * @returns 
+ * @returns A website url or boolean
  */
 export default async (orgNumber: string): WebsiteObj => {
   try {
@@ -14,21 +14,13 @@ export default async (orgNumber: string): WebsiteObj => {
       website: data && data.hjemmeside ? data.hjemmeside : false
     }
   } catch (e) {
-    const { response } = e
     if (e.response) {
-      const { data, status } = response
-      if (status === 410) {
+      if (e.response.status === 410) {
         return {
           deleted: true,
-          deletedDate: data.slettedato
+          deletedDate: e.response.data.slettedato
         }
-      } else {
-        return
-      }
-    } else {
-      return {
-        terminated: true
-      }
-    }
+      } else return
+    } else return { terminated: true }
   }
 }
