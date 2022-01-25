@@ -1,0 +1,22 @@
+{
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.tslint": true,
+    "source.organizeImports": false
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+  ],
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "css.validate": false
+}

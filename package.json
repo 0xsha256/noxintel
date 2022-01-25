@@ -1,0 +1,23 @@
+{
+  "name": "noxintel",
+  "private": true,
+  "scripts": {
+    "setup": "yarn && yarn --cwd ./packages/server setup",
+    "dev": "yarn --cwd ./packages/server dev",
+    "db": "yarn --cwd ./packages/server db:start",
+    "dev:preview": "concurrently \"yarn --cwd packages/server preview\"",
+    "build:all": "lerna publish",
+    "build:server": "yarn --cwd ./packages/server build"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "@types/progress": "^2.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "boxen": "5.1.2",
+    "concurrently": "^7.0.0",
+    "eslint": "^8.6.0",
+    "lerna": "^3.21.0",
+    "typescript": "^4.5.4"
+  }
+}
