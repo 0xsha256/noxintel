@@ -1,21 +1,29 @@
 import UnitRegister from '../../../../db/models/unit-register'
 import { ENRegisteredUnit } from '../../../../types/unit-register/index'
-import consola from 'consola'
+import ora from 'ora'
 
+let counter = 0
+
+const spin = ora().start()
 export default async (doc: ENRegisteredUnit) => {
-  try {
-    if (doc.terminated) return
+  if (doc.terminated) return
 
-    const docExists = await UnitRegister.exists({ orgNumber: doc.orgNumber })
+  const docExists = await UnitRegister.find({ orgNumber: doc.orgNumber }).select('orgNumber').lean()
+  const unitRegister = new UnitRegister(doc)
 
-    if (docExists) {
-      UnitRegister.updateOne(doc)
-    } else {
-
-      const unitRegister = new UnitRegister(doc)
-      unitRegister.save()
-    }
-  } catch (e) {
-    consola.error(e)
+  if (docExists) {
+    UnitRegister.updateOne(doc).then((r) => {
+      if (r.acknowledged) {
+        counter++
+        spin.text = counter.toLocaleString() + ' ' + 'units added to DB'
+      }
+    })
+  } else {
+    unitRegister.save().then((r) => {
+      if (r._id) {
+        counter++
+        spin.text = counter.toLocaleString() + ' ' + 'units added to DB'
+      }
+    })
   }
 }

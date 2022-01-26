@@ -1,3 +1,6 @@
+/**
+ * Fork from https://github.com/GiovanniCardamone/express-automatic-routes
+ */
 import { Application, Request, Response, NextFunction } from 'express'
 
 import process from 'process'
