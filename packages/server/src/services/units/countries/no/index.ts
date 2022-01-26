@@ -7,13 +7,18 @@ import { NORegisteredUnit, ENRegisteredUnit } from '../../../../types/unit-regis
 import renameRegUnitToEn from './utils/rename-reg-unit-to-en'
 import addWebsite from './utils/add-website'
 import consola from 'consola'
-
+/**
+ * 
+ * @param str
+ * @returns 
+ */
 const path = (str: string) => resolve(__dirname, str)
 
 /**
   * @param prefix - Prefix follows ISO 3166-1 alpha-2 codes, which are two-letter country codes defined in ISO 3166-1
   * @param {function} callback - A callback to run whose signature is (ENRegisteredUnit), where
   *  ENRegisteredUnit is an object.
+  * @todo Write out list in chunks, divide by 20K for each list.
   */
 export default async (prefix: string, callback: (arg0: ENRegisteredUnit | boolean) => void) => {
   const date = new Date().toISOString().split('T')[0]

@@ -11,7 +11,7 @@ export default async (doc: ENRegisteredUnit) => {
   const docExists = await UnitRegister.find({ orgNumber: doc.orgNumber }).select('orgNumber').lean()
   const unitRegister = new UnitRegister(doc)
 
-  if (docExists) {
+  if (Array.isArray(docExists) ? docExists.length > 0 : docExists) {
     UnitRegister.updateOne(doc).then((r) => {
       if (r.acknowledged) {
         counter++
