@@ -8,8 +8,9 @@ import renameRegUnitToEn from './utils/rename-reg-unit-to-en'
 import addWebsite from './utils/add-website'
 import consola from 'consola'
 import ora from 'ora'
-const path = (str: string) => resolve(__dirname, str)
+import { memory } from '../../../../utils/memory'
 
+const path = (str: string) => resolve(__dirname, str)
 
 /**
   * @param prefix - Prefix follows ISO 3166-1 alpha-2 codes, which are two-letter country codes defined in ISO 3166-1
@@ -17,7 +18,8 @@ const path = (str: string) => resolve(__dirname, str)
   *  ENRegisteredUnit is an object.
   */
 export default async (prefix: string, callback: (arg0: ENRegisteredUnit | boolean) => void) => {
-  const stream = createReadStream(path(`../../tmp/${prefix}-unit-register.json.gz`))
+  const date = new Date().toISOString().split('T')[0]
+  const stream = createReadStream(path(`../../tmp/${prefix}-${date}-units.json.gz`))
   let counter = 0
   const spin = ora().start()
 
@@ -28,7 +30,7 @@ export default async (prefix: string, callback: (arg0: ENRegisteredUnit | boolea
     .on('data', ({ value }) => processData(value))
     .on('error', e => consola.error(e))
     .on('end', () => {
-      spin.text = 'All units was processed'
+      spin.text = 'All units have been processed'
       consola.info('Stream ended')
     })
     .on('close', () => consola.info('Stream closed'))
@@ -41,7 +43,7 @@ export default async (prefix: string, callback: (arg0: ENRegisteredUnit | boolea
 
       if (websiteObj) {
         counter++
-        spin.text = counter.toLocaleString() + ' ' + 'units processed'
+        spin.text = counter.toLocaleString() + ' ' + 'units processed' + ' '
         callback(mergedObj)
       }
     } else {

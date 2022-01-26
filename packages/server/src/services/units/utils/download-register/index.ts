@@ -17,12 +17,17 @@ type Option = { prefix: string, url: string }
  * @returns boolean
  */
 export default async (data: Option): Promise<unknown> => {
+  const country = data.prefix
+  const date = new Date().toISOString().split('T')[0]
+
+  if (existsSync(path(`../../tmp/${country}-${date}-units.json.gz`))) {
+    return true
+  }
+
   const tmp = path('../../tmp')
   existsSync(tmp) ? {} : mkdirSync(tmp)
 
-  const country = data.prefix
-  const date = new Date().toISOString().split('T')[0]
-  const fileName = resolve(__dirname, `../../tmp/${country}-${date}-units.json.gz`)
+  const fileName = path(`../../tmp/${country}-${date}-units.json.gz`)
 
   const downloadStream = got.stream(data.url)
   const fileWriterStream = createWriteStream(fileName)

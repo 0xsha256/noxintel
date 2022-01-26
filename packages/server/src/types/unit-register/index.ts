@@ -49,10 +49,7 @@ export interface ENRegisteredUnit {
     description: string
     links: string[]
   }
-  website?: {
-    exists: boolean
-    url: string
-  }
+  website?: string | boolean
   regDateOfEntities: string
   isRegistereInMvaRegister: boolean
   industryCode: {

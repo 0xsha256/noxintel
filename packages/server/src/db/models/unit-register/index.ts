@@ -34,14 +34,7 @@ const UnitRegister = new Schema<ENRegisteredUnit>({
     required: false
   },
   website: {
-    exists: {
-      type: Boolean,
-      required: true
-    },
-    url: {
-      type: String,
-      required: false
-    }
+    type: Schema.Types.Mixed
   },
   industryCode: {
     description: {
