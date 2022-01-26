@@ -11,5 +11,5 @@ yarn.lock
 packages/.DS_Store
 packages/*/.DS_Store
 packages/*/yarn-error.log
-packages/server/src/services/unit-register/tmp
 packages/server/certs
+packages/server/src/services/units/tmp

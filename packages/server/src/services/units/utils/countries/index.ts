@@ -4,7 +4,7 @@
  */
 export default [
   {
-    prefix: 'NO',
+    prefix: 'no',
     url: 'https://data.brreg.no/enhetsregisteret/api/enheter/lastned'
   }
 ]

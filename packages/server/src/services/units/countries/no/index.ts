@@ -7,18 +7,19 @@ import { NORegisteredUnit, ENRegisteredUnit } from '../../../../types/unit-regis
 import renameRegUnitToEn from './utils/rename-reg-unit-to-en'
 import addWebsite from './utils/add-website'
 import consola from 'consola'
-import ora, { Ora } from 'ora'
+import ora from 'ora'
 const path = (str: string) => resolve(__dirname, str)
 
 
 /**
+  * @param prefix - Prefix follows ISO 3166-1 alpha-2 codes, which are two-letter country codes defined in ISO 3166-1
   * @param {function} callback - A callback to run whose signature is (ENRegisteredUnit), where
   *  ENRegisteredUnit is an object.
   */
-export default async (callback: (arg0: ENRegisteredUnit | boolean) => void) => {
-  const stream = createReadStream(path('./tmp/no-unit-register.json.gz'))
+export default async (prefix: string, callback: (arg0: ENRegisteredUnit | boolean) => void) => {
+  const stream = createReadStream(path(`../../tmp/${prefix}-unit-register.json.gz`))
   let counter = 0
-  let spin: Ora
+  const spin = ora().start()
 
   stream
     .pipe(zlib.createGunzip())
@@ -26,7 +27,10 @@ export default async (callback: (arg0: ENRegisteredUnit | boolean) => void) => {
     .pipe(streamArray())
     .on('data', ({ value }) => processData(value))
     .on('error', e => consola.error(e))
-    .on('end', () => consola.info('Stream ended'))
+    .on('end', () => {
+      spin.text = 'All units was processed'
+      consola.info('Stream ended')
+    })
     .on('close', () => consola.info('Stream closed'))
 
   async function processData(data: NORegisteredUnit | false) {

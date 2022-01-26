@@ -1,3 +1,10 @@
+/**
+ * Caculates the time left of something
+ * @param {startTime}
+ * @param {transferred}
+ * @param {total}
+ * @returns Estimated time left
+ */
 export default (startTime: number, transferred: number, total: number) => {
   const elapsedTime = (new Date().getTime()) - startTime
   const chunksPerTime = transferred / elapsedTime

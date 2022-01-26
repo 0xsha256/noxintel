@@ -3,32 +3,42 @@ import got from 'got'
 import { resolve } from 'path'
 import stream from 'stream'
 import { promisify } from 'util'
-import ora from 'ora'
+import ora, { Ora } from 'ora'
 import timeLeft from '../../../../utils/time-left'
 
 const pipeline = promisify(stream.pipeline)
 const path = (str: string) => resolve(__dirname, str)
+const prod = process.env.NODE_ENV === 'prod'
 
-export default async (prefix: string, url: string): Promise<unknown> => {
-  const tmp = path('../tmp')
+type Option = { prefix: string, url: string }
+/**
+ * Downloads a dataset containing all business units from a government register
+ * @param {Option}
+ * @returns boolean
+ */
+export default async (data: Option): Promise<unknown> => {
+  const tmp = path('../../tmp')
   existsSync(tmp) ? {} : mkdirSync(tmp)
-  const fileName = resolve(__dirname, '../tmp/no-unit-register.json.gz')
 
-  const downloadStream = got.stream(url)
+  const country = data.prefix
+  const date = new Date().toISOString().split('T')[0]
+  const fileName = resolve(__dirname, `../../tmp/${country}-${date}-units.json.gz`)
+
+  const downloadStream = got.stream(data.url)
   const fileWriterStream = createWriteStream(fileName)
   const startTime = Number(new Date())
-  const spin = ora().start()
+  let spin: Ora
 
   downloadStream.on('downloadProgress', ({ transferred, total }) => {
-
     const percentage = Math.round((100 * transferred) / total)
 
-    spin.text = percentage === 100 ?
-      'Download done' :
-      `Downloading ${prefix}-units ${percentage}% | ${timeLeft(startTime, transferred, total)}s left`
+    if (!prod) {
+      if (transferred === 0) spin = ora().start()
+      spin.text = percentage === 100 ?
+        'Download done' :
+        `Downloading ${data.prefix}-units ${percentage}% | ${timeLeft(startTime, transferred, total)}s left`
+    }
   })
 
-  const result = await pipeline(downloadStream, fileWriterStream).then(() => true)
-
-  return result
+  return await pipeline(downloadStream, fileWriterStream).then(() => true).catch(() => false)
 }

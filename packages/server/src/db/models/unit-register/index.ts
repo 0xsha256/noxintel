@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { ENRegisteredUnit } from 'types/unit-register/index'
+import { ENRegisteredUnit } from '../../../types/unit-register/index'
 
 const Schema = mongoose.Schema
 const UnitRegister = new Schema<ENRegisteredUnit>({

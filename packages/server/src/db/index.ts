@@ -3,8 +3,10 @@ import { config } from 'dotenv'
 import consola from 'consola'
 config()
 
-mongoose
-  .connect(`mongodb://localhost:2717/${process.env.DB_NAME}`)
-  .then(() => consola.success('Database connected'))
-  .catch(err => consola.error(err))
+export default (prod: boolean) => {
+  mongoose
+    .connect(`mongodb://localhost:2717/${process.env.DB_NAME}`)
+    .then(() => prod ? '' : consola.success('Database connected'))
+    .catch(err => prod ? '' : consola.error(err))
+}
 
