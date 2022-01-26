@@ -1,4 +1,4 @@
-import { NORegisteredUnit, ENRegisteredUnit } from '../../../../../../types/unit-register'
+import { NORegisteredUnit, ENRegisteredUnit } from '../../../../../types/unit-register'
 import data from './data'
 
 // @ts-ignore

@@ -5,7 +5,7 @@ import { config } from 'dotenv'
 import message from './utils/messages/system'
 import routes from './utils/auto-route'
 import path from 'path'
-import unitRegister from './services/units'
+import unitRegister from './services/units/no'
 
 config()
 
