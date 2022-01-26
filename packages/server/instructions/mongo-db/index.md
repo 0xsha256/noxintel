@@ -1,5 +1,5 @@
-### Install with Brew
-`brew install --cask docker`
+### Install docker for Mac
+https://docs.docker.com/desktop/mac/install/
 
 ### Pull mongo with docker
 `docker pull mongo:latest`
