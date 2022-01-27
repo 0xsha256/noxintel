@@ -20,7 +20,7 @@
   },
   "scripts": {
     "setup": "yarn && yarn env && docker pull mongo:latest",
-    "dev": "NODE_ENV=dev ts-node-dev --max_old_space_size=4096 --respawn --transpile-only --exit-child --watch tsc src src/index.ts",
+    "dev": "NODE_ENV=dev ts-node-dev –nouse_idle_notification and –expose_gc, --max_old_space_size=4096 --respawn --transpile-only --exit-child --watch tsc src src/index.ts",
     "build": "rimraf ./dist && tsc",
     "preview": "NODE_ENV=production node ./dist/index.js",
     "env": "echo \"SERVER_PORT=2717\nDB_PORT=2717\nDB_NAME=noxintel\nDB_SSL=false\" > .env",
