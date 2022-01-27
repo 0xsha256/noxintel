@@ -1,14 +1,17 @@
 # Noxintel
-Get datasets of businesses in Scandinavia from government APIs, scrape data from websites, 
+Get collections of businesses in Scandinavia from government APIs
 
 ![MongoDB Compass](assets/en-units.jpg)
+
+## Purpose
+This project is mainly made for market research purposes
 
 ## What it does
 It streams GZIP files that contains huge amounts of data and inserts that data in MongoDB. What you can do with this data is up to you.
 
 My idea before was to use APIs from google to gather statistical data from each website. However, I believe there are multiple open source alternatives, at least for some of the APIs that I can integrate into this project. (To be updated)
 
-Extract more data from the URLs with these APIs.
+Extract more data from the website URLs with these APIs.
 - [Google adwords API](https://developers.google.com/adwords/api/docs/guides/start)
 - [Google business API](https://developers.google.com/my-business/reference/rest)
 - [Google lighthouse API](https://developers.google.com/web/tools/lighthouse)
