@@ -12,3 +12,4 @@ yarn.lock
 packages/.DS_Store
 packages/*/.DS_Store
 packages/*/yarn-error.log
+yarn-error.log
