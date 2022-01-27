@@ -6,10 +6,9 @@ packages/*/dist
 packages/*/__tests__
 packages/*/yarn.lock
 packages/*/node_modules
+packages/*/.env
 .DS_Store
 yarn.lock
 packages/.DS_Store
 packages/*/.DS_Store
 packages/*/yarn-error.log
-packages/server/certs
-packages/server/src/services/units/tmp

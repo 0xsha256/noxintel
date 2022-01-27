@@ -1,4 +1,4 @@
-export interface NORegisteredUnit {
+export interface NbNoUnit {
   _id?: {
     $oid?: string
   }
@@ -9,6 +9,7 @@ export interface NORegisteredUnit {
     beskrivelse: string
     links: Array<string>
   }
+  hjemmeside?: string | undefined
   registreringsdatoEnhetsregisteret: string
   registrertIMvaregisteret: boolean
   naeringskode1: {
@@ -40,7 +41,7 @@ export interface NORegisteredUnit {
 }
 
 
-export interface ENRegisteredUnit {
+export interface EnUsUnit {
   _id?: string
   orgNumber: string
   name: string

@@ -2,13 +2,16 @@ import { get } from 'https'
 import { createGunzip } from 'zlib'
 import { parser } from 'stream-json'
 import { streamArray } from 'stream-json/streamers/StreamArray'
-import renameObjKeys from './utils/rename-obj-keys'
-import fetchWebsiteUrl from './utils/fetch-website-url'
-import setDoc from './utils/set-doc'
+import renameDocKeys from './utils/rename-doc-keys'
+import pushDoc from './utils/push-doc'
 import consola from 'consola'
 import { heap } from '../../../utils/memory'
+import { config } from 'dotenv'
+
+config()
+
 export default async () => {
-  get('https://data.brreg.no/enhetsregisteret/api/enheter/lastned',
+  get(String(process.env.NO_UNIT_REGISTER_URL),
     (res) => {
       res
         .pipe(createGunzip())
@@ -16,18 +19,10 @@ export default async () => {
         .pipe(streamArray())
         .on('data', async ({ value }) => {
           res.pause()
-
-          if (res.isPaused() && heap() < 150) {
-            const unit = renameObjKeys(value)
-            const website = await fetchWebsiteUrl(unit.orgNumber)
-            const doc = Object.assign(unit, website)
-
-            if (website) {
-              const result = await setDoc(doc)
-              if (result) {
-                res.resume()
-              }
-            }
+          if (res.isPaused() && heap() < Number(process.env.MAX_HEAP_FOR_UNIT_STREAM)) {
+            const doc = renameDocKeys(value)
+            const result = await pushDoc(String(process.env.NO_DB_COL_NAME), doc)
+            if (result) res.resume()
           }
         })
         .on('error', ({ message }) => consola.error(message))

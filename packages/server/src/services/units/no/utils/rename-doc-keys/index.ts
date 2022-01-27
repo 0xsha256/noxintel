@@ -1,10 +1,10 @@
-import { NORegisteredUnit, ENRegisteredUnit } from '../../../../../types/unit-register'
+import { NbNoUnit, EnUsUnit } from '../../../../../types/unit-register'
 import data from './data'
 
 // @ts-ignore
 const mapShortToLong = new Map(data)
 
-export default (object: NORegisteredUnit) => {
+export default (object: NbNoUnit) => {
   // Using a `Map` here to provide a `Map` example, but you can ue an object as
   // in the previous ones if you prefer if the keys are strings
   // @ts-ignore
@@ -36,7 +36,7 @@ export default (object: NORegisteredUnit) => {
       // @ts-ignore | Set it on the result using the destination key
       build[destKey] = value
     }
-    return build as ENRegisteredUnit
+    return build as EnUsUnit
   }
 
   return renameKeys(object)

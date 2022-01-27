@@ -20,10 +20,10 @@
   },
   "scripts": {
     "setup": "yarn && yarn env && docker pull mongo:latest",
-    "dev": "NODE_ENV=dev ts-node-dev –nouse_idle_notification and –expose_gc, --max_old_space_size=4096 --respawn --transpile-only --exit-child --watch tsc src src/index.ts",
+    "dev": "NODE_ENV=dev ts-node-dev --max_old_space_size=4096 --respawn --transpile-only --exit-child --watch tsc src src/index.ts",
     "build": "rimraf ./dist && tsc",
     "preview": "NODE_ENV=production node ./dist/index.js",
-    "env": "echo \"SERVER_PORT=2717\nDB_PORT=2717\nDB_NAME=noxintel\nDB_SSL=false\" > .env",
+    "env": "echo \"SERVER_PORT=4000\nDB_PORT=2717\nDB_NAME=noxintel\nDB_SSL=false\nMAX_HEAP_FOR_UNIT_STREAM=200\nNO_DB_COL_NAME=no-units\nNO_UNIT_REGISTER_URL=https://data.brreg.no/enhetsregisteret/api/enheter/lastned\" > .env",
     "db:start": "docker run -d -p 2717:27017 -v ./data/db --name noxintel-db mongo:latest",
     "db:run": "docker start noxintel-db",
     "db:stop": "docker stop noxintel-db",

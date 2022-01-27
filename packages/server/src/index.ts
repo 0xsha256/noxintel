@@ -14,7 +14,7 @@ const prod = process.env.NODE_ENV === 'prod'
 
 app.use(compression())
 
-app.listen(4000, () => {
+app.listen(process.env.SERVER_PORT, () => {
   message(prod)
   db(prod)
   unitRegister()
