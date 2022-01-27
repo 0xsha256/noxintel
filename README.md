@@ -3,8 +3,8 @@ Get datasets of businesses in Scandinavia from government APIs, scrape data from
 
 ![MongoDB Compass](assets/en-units.jpg)
 
-# What it does
-It streams GZIP files that contains huge amounts of data and inserts that data in MongoDB. What you can do with this data is up to you. I'm planning on introducing a couple of features that allows us to scrape data from websites and get valuable information that can be used to contact a business and offer services to fix problems,collect leads, or general data for market research purposes.
+## What it does
+It streams GZIP files that contains huge amounts of data and inserts that data in MongoDB. What you can do with this data is up to you.
 
 My idea before was to use APIs from google to gather statistical data from each website. However, I believe there are multiple open source alternatives, at least for some of the APIs that I can integrate into this project. (To be updated)
 
