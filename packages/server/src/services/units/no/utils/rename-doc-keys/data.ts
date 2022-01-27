@@ -17,6 +17,7 @@ export default [
   ['poststed', 'postalLocation'],
   ['kommune', 'municipality'],
   ['kommunenummer', 'municipalityCode'],
+  ['stiftelsesdato', 'dateOfIncorporation'],
   ['institusjonellSektorkode', 'institutionalSectorCode'],
   ['registrertIForetaksregisteret', 'registeredInTheRegisterOfBusinessEnterprises'],
   ['registrertIStiftelsesregisteret', 'registeredIinTheFoundationRegister'],

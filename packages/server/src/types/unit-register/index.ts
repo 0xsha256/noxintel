@@ -26,6 +26,7 @@ export interface NbNoUnit {
     kommune: string
     kommunenummer: number
   }
+  stiftelsesdato: string,
   institusjonellSektorkode: {
     kode: number
     beskrivelse: string
@@ -67,6 +68,7 @@ export interface EnUsUnit {
     municipality: string
     municipalityCode: string
   }
+  dateOfIncorporation: string,
   institutionalSectorCode: {
     code: string
     description: string

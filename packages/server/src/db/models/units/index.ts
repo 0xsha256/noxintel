@@ -1,9 +1,11 @@
+import db from '../../'
 import mongoose, { Model } from 'mongoose'
 import { EnUsUnit } from '../../../types/unit-register/index'
 
 export type UnitDbCollection = Model<EnUsUnit, Record<string, unknown>, Record<string, unknown>, Record<string, unknown>>
 
 const Schema = mongoose.Schema
+
 const UnitRegister = new Schema<EnUsUnit>({
   orgNumber: {
     type: String,
@@ -82,6 +84,7 @@ const UnitRegister = new Schema<EnUsUnit>({
       required: false
     }
   },
+  dateOfIncorporation: String,
   institutionalSectorCode: {
     code: {
       type: String,
@@ -139,4 +142,5 @@ const UnitRegister = new Schema<EnUsUnit>({
  * @param col
  * @return Mongo Db collection
  */
+
 export default (col: string): UnitDbCollection => mongoose.model(`${col}`, UnitRegister)

@@ -16,7 +16,6 @@ app.use(compression())
 
 app.listen(process.env.SERVER_PORT, () => {
   message(prod)
-  db(prod)
   unitRegister()
   routes(app, {
     dir: path.resolve(__dirname, './routes') // relative to your cwd
