@@ -1,13 +1,12 @@
 # Noxintel
-Get a collection of every registered business unit in Norway from The Brønnøysund Register Centre including the website URLs.
+Get datasets of businesses in Scandinavia from government APIs, scrape data from websites, 
 
 ![MongoDB Compass](assets/en-units.jpg)
 
 # What it does
-It downloads a GZIP file that contains a JSON list (Over 1GB) of all registered businesses in Norway. This list updates every day at 05:00 AM GMT +1. It then collects website URLs from all the businesses and injects each object as a document in a Mongo DB collection. There will be aprox. 1,1M documents in the end.
+It streams GZIP files that contains huge amounts of data and inserts that data in MongoDB. What you can do with this data is up to you. I'm planning on introducing a couple of features that allows us to scrape data from websites and get valuable information that can be used to contact a business and offer services to fix problems,collect leads, or general data for market research purposes.
 
-### Purpose
-There are over 1M registered businesses in Norway, and with Brønnøysund's Open data, we can process it and extract a lot more data about each business. You might have a consultancy business or some other type of business where analytical data is important. You can get business leads for free, or you can do anything else with the data you process and collect.
+My idea before was to use APIs from google to gather statistical data from each website. However, I believe there are multiple open source alternatives, at least for some of the APIs that I can integrate into this project. (To be updated)
 
 Extract more data from the URLs with these APIs.
 - [Google adwords API](https://developers.google.com/adwords/api/docs/guides/start)
@@ -21,13 +20,6 @@ Extract more data from the URLs with these APIs.
 - [Wappalyzer API](https://www.npmjs.com/package/wappalyzer)
 - [Linkedin API](https://developer.linkedin.com/)
 - [Crunchbase API](https://data.crunchbase.com/docs/using-the-api)
-
-# Notes
-- BRREG does not give you the website URLs on their `/enhetsregisteret/api/enheter/lastned` endpoint. Although it is automated, it will attempt to make a `GET` request at the `https://data.brreg.no/enhetsregisteret/api/enheter/${id}` endpoint for each business to extract the website URLs and may take many hours to get all the websites. The project might result in high CPU usage, something that I am currently trying to fix.
-
-- BRREG updates the registry at 05:00 (AM) GMT +1. Every bankrupt business will display a `bankrupt: true` property, and after a while, it will display `deleted: true`, in the end, this project will not even try to extract data from businesses that are due to deletion in BRREG. Please see types/unit-register for the translated schema. BRREG Does not supply English schema, and I have implemented code that translates the property names to English. String values are not yet translated but will be soon.
-
-# Instructions
 
 ## Prerequisites
 - [Docker](https://www.docker.com/products/docker-desktop)
@@ -55,10 +47,7 @@ Yarn setup will:
 `yarn build:server`
 
 ### Todo
-- [ ] Create a CLI
-- [ ] Add filter options for data extraction
 - [ ] Add more countries
-- [ ] Optimize CPU usage
 - [ ] Build a user interface
 - [ ] Implement webcrawlers
-- [ ] Build 3rd party API
+- [ ] Build APIs
