@@ -4,7 +4,7 @@ Get collections of businesses in Scandinavia from government APIs
 ![MongoDB Compass](assets/en-units.jpg)
 
 ## Purpose
-This project is mainly made for market research purposes
+This project is mainly made for market research purposes. There is already a register that collects data about every business in the world: opencorporates.com, but they don't provide emails, websiite URLs, or extensive information as the goal with this project is.
 
 ## What it does
 It streams GZIP files that contains huge amounts of data and inserts that data in MongoDB. What you can do with this data is up to you.

@@ -10,8 +10,5 @@ client.connect()
   .then(() => prod ? '' : consola.success('Database connected'))
   .catch(err => prod ? '' : consola.error(err))
 
-/**
- * Example usage: database.collection('movies');
- */
 export default client.db(process.env.DB_NAME) as Db
 
