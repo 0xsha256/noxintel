@@ -1,5 +1,5 @@
 import mongoose, { Model } from 'mongoose'
-import { EnUsUnit } from '../../../../types/unit-register/index'
+import { EnUsUnit } from '../../../types/unit-register/index'
 
 export type UnitDbCollection = Model<EnUsUnit, Record<string, unknown>, Record<string, unknown>, Record<string, unknown>>
 
@@ -137,6 +137,6 @@ const UnitRegister = new Schema<EnUsUnit>({
 /**
  * @type {Function}
  * @param col
- * @return SchemaReturnType
+ * @return Mongo Db collection
  */
-export default (col: string): UnitDbCollection => mongoose.model(`${col}-units`, UnitRegister)
+export default (col: string): UnitDbCollection => mongoose.model(`${col}`, UnitRegister)

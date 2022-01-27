@@ -3,14 +3,20 @@ import { createGunzip } from 'zlib'
 import { parser } from 'stream-json'
 import { streamArray } from 'stream-json/streamers/StreamArray'
 import renameDocKeys from './utils/rename-doc-keys'
-import pushDoc from './utils/push-doc'
 import consola from 'consola'
-import { heap } from '../../../utils/memory'
 import { config } from 'dotenv'
+import { EnUsUnit } from '../../../types/unit-register/index'
+import UnitRegister from '../../../db/models/units'
+import ora from 'ora'
 
 config()
 
 export default async () => {
+  const units = [] as Array<EnUsUnit>
+  const col = String(process.env.NO_DB_COL_NAME)
+  const Col = UnitRegister(col)
+  const spin = ora().start()
+
   get(String(process.env.NO_UNIT_REGISTER_URL),
     (res) => {
       res
@@ -18,15 +24,17 @@ export default async () => {
         .pipe(parser())
         .pipe(streamArray())
         .on('data', async ({ value }) => {
-          res.pause()
-          if (res.isPaused() && heap() < Number(process.env.MAX_HEAP_FOR_UNIT_STREAM)) {
-            const doc = renameDocKeys(value)
-            const result = await pushDoc(String(process.env.NO_DB_COL_NAME), doc)
-            if (result) res.resume()
-          }
+          const doc = renameDocKeys(value)
+          units.push(doc)
+          spin.text = `${units.length.toLocaleString()} units collected`
         })
         .on('error', ({ message }) => consola.error(message))
-        .on('end', () => consola.info('Stream ended'))
-        .on('close', () => consola.info('Stream closed'))
+        .on('end', async () => {
+          spin.succeed('Stream ended\n')
+          consola.info(`Inserting collection in ${col}`)
+          const result = await Col.insertMany(units, {})
+          consola.info(`${result.length} documents were inserted`)
+          consola.info(result)
+        })
     })
 }

@@ -1,7 +1,7 @@
 {
   "name": "noxintel-server",
   "version": "0.0.0",
-  "description": "Collects business data and website URLS from The Brønnøysund Register Centre",
+  "description": "Collects business data from various countries in Europe",
   "author": "0xsha256 - Daniel Hendricks",
   "license": "MIT",
   "engines": {
@@ -41,7 +41,6 @@
     "consola": "^2.15.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
-    "got": "11.0.0",
     "mongoose": "^6.1.5",
     "ora": "5.0.0",
     "pretty-bytes": "^5.6.0",

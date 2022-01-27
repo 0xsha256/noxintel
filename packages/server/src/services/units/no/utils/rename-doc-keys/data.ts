@@ -3,6 +3,7 @@ export default [
   ['kode', 'code'],
   ['navn', 'name'],
   ['organisasjonsform', 'organizationForm'],
+  ['hjemmeside', 'website'],
   ['beskrivelse', 'description'],
   ['registreringsdatoEnhetsregisteret', 'regDateOfEntities'],
   ['registrertIMvaregisteret', 'isRegistereInMvaRegister'],
