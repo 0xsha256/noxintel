@@ -1,5 +1,5 @@
 # Noxintel
-Get collections of businesses in Scandinavia from government APIs
+Get a collection of businesses in Norway
 
 ![MongoDB Compass](assets/en-units.jpg)
 
@@ -7,9 +7,7 @@ Get collections of businesses in Scandinavia from government APIs
 This project is mainly made for market research purposes.
 
 ## What it does
-It streams GZIP files that contains huge amounts of data and inserts that data in MongoDB. What you can do with this data is up to you.
-
-My idea before was to use APIs from google to gather statistical data from each website. However, I believe there are multiple open source alternatives, at least for some of the APIs that I can integrate into this project. (To be updated)
+It streams a GZIP file that contains huge amounts of data and inserts that data in MongoDB. At the moment there are 1,1M registered units, but 88% of all businesses are missing websites.
 
 Extract more data from the website URLs with these APIs.
 - [Google adwords API](https://developers.google.com/adwords/api/docs/guides/start)
