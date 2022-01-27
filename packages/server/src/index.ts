@@ -1,5 +1,4 @@
 import express from 'express'
-import db from './db'
 import compression from 'compression'
 import { config } from 'dotenv'
 import message from './utils/messages/system'

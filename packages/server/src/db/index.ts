@@ -1,7 +1,6 @@
 import { MongoClient, Db } from 'mongodb'
 import { config } from 'dotenv'
 import consola from 'consola'
-import { EnUsUnit } from '../types/unit-register/index'
 config()
 const prod = process.env.NODE_ENV === 'prod'
 

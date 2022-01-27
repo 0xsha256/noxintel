@@ -13,8 +13,8 @@ config()
 
 export default async () => {
   const units = [] as Array<Collection<EnUsUnit>>
-  const col = String(process.env.NO_DB_COL_NAME)
-  const Col = db.collection(col)
+  const colName = String(process.env.NO_DB_COL_NAME)
+  const col = db.collection(colName)
   const spin = ora().start()
 
   get(String(process.env.NO_UNIT_REGISTER_URL),
@@ -24,25 +24,15 @@ export default async () => {
         .pipe(parser())
         .pipe(streamArray())
         .on('data', async ({ value }) => {
-          /**
-           * @todo options:
-           * 1. Can write out a file and inject it in col
-           * 2. Can try to insert the units array as col
-           */
           units.push(renameDocKeys(value))
           spin.text = `${units.length.toLocaleString()} units collected`
         })
         .on('error', ({ message }) => consola.error(message))
-        .on('end', async () => {
-          spin.succeed('Stream ended\n')
-          consola.info(`Inserting collection in ${col}`)
-          Col.insertMany(units, {}, callback)
+        .on('end', () => {
+          spin.text = `Inserting units in ${colName}`
+          col.insertMany(units, {}, () => {
+            spin.succeed(`All units successfully inserted in ${colName}`)
+          })
         })
     })
-  /*
-          consola.info(`${result.length} documents were inserted`)
-          consola.info(result)*/
-  function callback(proxy: any) {
-    console.log(proxy)
-  }
 }
